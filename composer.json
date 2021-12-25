@@ -1,0 +1,30 @@
+{
+    "name": "linxx/dtmcli-php",
+    "description": "dtmcli-php",
+    "type": "library",
+    "require": {
+        "ext-json": "*",
+        "mix/guzzle": "^2.2"
+    },
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "linxx",
+            "email": "867956984@qq.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Dtmcli\\": "src/"
+        },
+        "files": [
+            "src/functions.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Dtmcli\\Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev"
+}
