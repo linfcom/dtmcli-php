@@ -58,6 +58,7 @@ namespace Dtmcli {
         ];
         $client = new \GuzzleHttp\Client();
         $message = '操作成功';
+        $gid = $tcc->gid;
         try {
             $response = $client->post($tcc->dtm . '/prepare', ['json' => $tbody]);
             checkStatus($response->getStatusCode());
@@ -66,9 +67,10 @@ namespace Dtmcli {
         } catch (\Throwable $e) {
             $client->post($tcc->dtm . '/abort', ['json' => $tbody]);
             $message = $e->getMessage();
+            $gid = '';
         }
         return [
-            'gid'   => $tcc->gid,
+            'gid'   => $gid,
             'message'   => $message
         ];
     }
