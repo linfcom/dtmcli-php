@@ -49,7 +49,7 @@ namespace Dtmcli {
      * @return string
      * @throws \Exception
      */
-    function tccGlobalTransaction(string $dtmUrl, callable $cb): string
+    function tccGlobalTransaction(string $dtmUrl, callable $cb): array
     {
         $tcc = new Tcc($dtmUrl, genGid($dtmUrl));
         $tbody = [
@@ -57,6 +57,7 @@ namespace Dtmcli {
             'trans_type' => 'tcc',
         ];
         $client = new \GuzzleHttp\Client();
+        $message = '操作成功';
         try {
             $response = $client->post($tcc->dtm . '/prepare', ['json' => $tbody]);
             checkStatus($response->getStatusCode());
@@ -64,10 +65,12 @@ namespace Dtmcli {
             $client->post($tcc->dtm . '/submit', ['json' => $tbody]);
         } catch (\Throwable $e) {
             $client->post($tcc->dtm . '/abort', ['json' => $tbody]);
-            var_dump($e->getMessage());
-            return '';
+            $message = $e->getMessage();
         }
-        return $tcc->gid;
+        return [
+            'gid'   => $tcc->gid,
+            'message'   => $message
+        ];
     }
 
     /**
