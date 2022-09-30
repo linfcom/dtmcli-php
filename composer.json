@@ -1,5 +1,5 @@
 {
-    "name": "linxx/dtmcli-php",
+    "name": "linfcom/dtmcli-php",
     "description": "dtmcli-php",
     "type": "library",
     "require": {
